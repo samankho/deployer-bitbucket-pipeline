@@ -1,30 +1,32 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN apt-get update && \
         DEBIAN_FRONTEND=noninteractive \
-        apt-get install -q -y php7.0 \
-                                        php7.0-fpm \
+        apt-get install -q -y php7.4 \
+                                        php7.4-fpm \
                                         imagemagick \
                                         php-memcached \
-                                        php7.0-soap \
-                                        php7.0-cli \
-                                        php7.0-curl \
-                                        php7.0-dev \
-                                        php7.0-gd \
-                                        php7.0-mcrypt \
-                                        php7.0-zip \
-                                        php7.0-xsl \
-                                        php7.0-odbc \
-                                        php7.0-mbstring \
+                                        php7.4-soap \
+                                        php7.4-cli \
+                                        php7.4-curl \
+                                        php7.4-dev \
+                                        php7.4-gd \
+                                        php7.4-mcrypt \
+                                        php7.4-zip \
+                                        php7.4-xsl \
+                                        php7.4-odbc \
+                                        php7.4-mbstring \
                                         php-pear \
-                                        php7.0-intl \
-                                        php7.0-mysql \
+                                        php7.4-intl \
+                                        php7.4-mysql \
                                         php-imagick \
                                         openssh-client \
                                         git \
                                         python-software-properties
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+# Node.js
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+
 RUN apt-get update && \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install -q -y nodejs
@@ -40,4 +42,4 @@ RUN curl -LO https://deployer.org/deployer.phar -o /usr/local/bin/dep
 # Make all binaries executable
 RUN chmod +x /usr/local/bin/*
 
-CMD ["php-fpm7.0"]
+CMD ["php-fpm7.4"]
