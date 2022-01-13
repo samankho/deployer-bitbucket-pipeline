@@ -1,9 +1,15 @@
 FROM ubuntu:18.04
 
+ENV TZ=Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 RUN apt-get update && \
-        DEBIAN_FRONTEND=noninteractive \
-        apt-get install -q -y php7.4 \
-                                        php7.4-fpm \
+        DEBIAN_FRONTEND=noninteractive && \
+        apt -y install software-properties-common && \
+        add-apt-repository ppa:ondrej/php && \
+        apt-get update && \
+        apt-get -q -y install curl && \
+        apt-get -q -y install php7.4 \
                                         imagemagick \
                                         php-memcached \
                                         php7.4-soap \
@@ -21,12 +27,9 @@ RUN apt-get update && \
                                         php7.4-mysql \
                                         php-imagick \
                                         openssh-client \
-                                        git \
-                                        python-software-properties
+                                        git
 
-# Node.js
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-
 RUN apt-get update && \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install -q -y nodejs
